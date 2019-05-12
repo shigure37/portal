@@ -7,9 +7,25 @@
 package main
 
 import (
-	"fmt"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
+	"net/http"
+	"portal/web/app/handlers"
 )
 
 func main() {
-	fmt.Println("this is a test")
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.GET("/", hello)
+	e.GET("/login", handlers.LoginHandler)
+
+	e.Logger.Fatal(e.Start(":8080"))
+
+}
+
+func hello(c echo.Context) error {
+	return c.String(http.StatusOK, "hello")
 }
