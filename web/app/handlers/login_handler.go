@@ -11,6 +11,20 @@ import (
 	"net/http"
 )
 
+type Todo struct {
+	Title string
+	Done  bool
+}
+type TodoPageData struct {
+	PageTitle string
+	Todos     []Todo
+}
+
 func LoginHandler(c echo.Context) error {
-	return c.String(http.StatusOK, "login")
+
+	//return c.String(http.StatusOK, "login")
+	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
+		"name":  "Dolly!",
+		"title": "shiguremoe",
+	})
 }
